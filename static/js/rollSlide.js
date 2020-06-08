@@ -4,6 +4,9 @@
 (function($){
     $.fn.rollSlide = function(obj){
         var $self = this,
+            rollBody = obj.rollBody || '.roll__list',  //滚动容器
+            rollItem = obj.rollItem ||  'li',  //滚动单位
+            offset = obj.offset || 0,  //偏移量px
             orientation = obj.orientation || 'left',   //滚动方式
             num = obj.num || 1,      //滚动数量
             v = (typeof obj.v === 'number') ? obj.v : 0,    //滚动速度
@@ -12,8 +15,8 @@
             isRoll = obj.isRoll,   //自动播放
             isStart = true,
             roll = function(ori, n, v){
-                var $ul = $self.find('.roll__list'),
-                    $item = $ul.find('li'),
+                var $ul = $self.find(rollBody),
+                    $item = $ul.find(rollItem),
                     range = 0,
                     i,len = $item.length,
                     sliceItem = [],
@@ -45,18 +48,18 @@
                     case 'left':
                         $ul.append(cloneSliceItem);
                         $ul.animate({
-                            'left': -range + 'px'
+                            'left': -range + offset + 'px'
                         },v,function(){
-                            $(this).css({'left': 0});
+                            $(this).css({'left': offset});
                             $(sliceItem).remove();
                             isStart = true;    //开启滚动
                         });
                         break;
                     case 'right':
                         $ul.prepend(cloneSliceItem);
-                        $ul.css('left', -range + 'px');
+                        $ul.css('left', -range + offset + 'px');
                         $ul.animate({
-                            'left': 0
+                            'left': offset
                         },v,function(){
                             $(sliceItem).remove();
                             isStart = true;    //开启滚动
@@ -65,18 +68,18 @@
                     case 'top':
                         $ul.append(cloneSliceItem);
                         $ul.animate({
-                            'top': -range + 'px'
+                            'top': -range + offset + 'px'
                         },v,function(){
-                            $(this).css({'top': 0});
+                            $(this).css({'top': offset});
                             $(sliceItem).remove();
                             isStart = true;    //开启滚动
                         });
                         break;
                     case 'bottom':
                         $ul.prepend(cloneSliceItem);
-                        $ul.css('top', -range + 'px');
+                        $ul.css('top', -range + offset + 'px');
                         $ul.animate({
-                            'top': 0
+                            'top':  offset
                         },v, function(){
                             $(sliceItem).remove();
                             isStart = true;    //开启滚动
@@ -85,8 +88,8 @@
                 }
             },
             init = function(){
-                var $ul = $self.find('.roll__list'),
-                    $item = $ul.find('li'),
+                var $ul = $self.find(rollBody),
+                    $item = $ul.find(rollItem),
                     len = $item.length,
                     timer;
 
@@ -127,10 +130,12 @@
 
         init();
     };
-    $.fn.rollNoInterval = function(){
+    $.fn.rollNoInterval = function(obj){
+        var rollBody = obj.rollBody || '.roll__list',  //滚动容器
+            rollItem = obj.rollItem ||  'li';  //滚动单位
         var $self = this,
-            $ul = $self.find('.roll__list'),
-            $item = $ul.find('li'),
+            $ul = $self.find(rollBody),
+            $item = $ul.find(rollItem),
             len = $item.length,
             timer,
             left = function(){
