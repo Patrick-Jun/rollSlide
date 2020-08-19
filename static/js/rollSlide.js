@@ -44,7 +44,7 @@
                 switch (ori){
                     case 'left':
                         $ul.append(cloneSliceItem);
-                        $ul.animate({
+                        $ul.stop(true, true).animate({
                             'left': -range + 'px'
                         },v,function(){
                             $(this).css({'left': 0});
@@ -55,7 +55,7 @@
                     case 'right':
                         $ul.prepend(cloneSliceItem);
                         $ul.css('left', -range + 'px');
-                        $ul.animate({
+                        $ul.stop(true, true).animate({
                             'left': 0
                         },v,function(){
                             $(sliceItem).remove();
@@ -64,7 +64,7 @@
                         break;
                     case 'top':
                         $ul.append(cloneSliceItem);
-                        $ul.animate({
+                        $ul.stop(true, true).animate({
                             'top': -range + 'px'
                         },v,function(){
                             $(this).css({'top': 0});
@@ -75,7 +75,7 @@
                     case 'bottom':
                         $ul.prepend(cloneSliceItem);
                         $ul.css('top', -range + 'px');
-                        $ul.animate({
+                        $ul.stop(true, true).animate({
                             'top': 0
                         },v, function(){
                             $(sliceItem).remove();
